@@ -2,7 +2,11 @@
 # OBJECT = un insieme di dati e metodi
 # CLASS = istruzioni per OBJECT
 
+"""Creo una classe/funzione 'Learner' dove inserirò tutte le informazioni degli studenti di cui ho bisogno
+(nome, cognome, livello di preparazione, classe di preparazione)."""
 class Learner (object): #le classi si scrivono in cammel case->LearnerFederico
+
+"""La funzione init ha 5 argomenti, se stessa, nome, cognome, livello e classe"""
     def __init__(self, name, surname, level=0, classes=0): #gli stiamo dicendo che la fx init ha 3argomenti: se stessa, name e surname
         self.k = 5 #k sta per constant (in pratica la fx self è una costante = a 5)
         self.name = name
@@ -12,12 +16,17 @@ class Learner (object): #le classi si scrivono in cammel case->LearnerFederico
         self.classes = abs(classes)
         self.days = self._calc_days(self.level, self.classes)
 
+"""Definisco l'argomento self"""
     def __repr__(self):
         return "Learner: {}\nLevel-> {}\nClasses-> {}\nDays-> {}".format(self.fullname, self.level, self.classes, self.days) #le parentesi {} sono un segnaposto per il .format
 
+"""Stiamo passando nuovi dati alla funzione init tramite l'interfaccia add data"""
     def add_data(self, level=0, classes=0):
         self.__init__(self.name, self.surname, level, classes) #in questo modo richiamo l'init che avevamo fatto sopra e aggiungo i dati di quell'init ma gli stiamo passando nuovi dati tramite interfaccia add data
 
+
+"""Qui definisco il calcolo dei giorni mancanti al livello master
+a seconda del livello e delle classi. Ogni classe dura 2 ore. Ogni livello sono 100 giorni"""
     def _calc_days(self, level, classes): #abbiamo messo underscore al metodo calc_days perché è un metodo privato
         if level == 0:
             return None
