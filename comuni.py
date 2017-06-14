@@ -16,7 +16,7 @@ from pathlib import Path
 
 
 class ComuniPop(object):
-"""è stata creata una classe ComuniPop dove verranno inserite alcune informazioni""""
+    """è stata creata una classe ComuniPop dove verranno inserite alcune informazioni"""
 
     def __init__(self):
         """La funzione def __init__ ha come argomento solo se stesso"""
@@ -44,24 +44,35 @@ class ComuniPop(object):
         # vado a cercare la parte tabellare della pagina e cerco per tutte le righe ('tr' è il tag per le righe in HTML)
         comuni = sp.find("table").find_all("tr")
 
-        #definisco 'mx' come un set inizializzato
+        # definisco 'mx' come un set inizializzato
         mx = []
 
 
         for row in comuni:
 
-            #per ogni riga vado a cercare la cella della tabella
+            # per ogni riga vado a cercare la cella della tabella
             cols = row.find_all("td")
+
+            # sostituisco '\xa0' il non-breaking space che si trova nella pagine di Wikipedia
             cols = [data.text.strip().replace("\xa0", "") for data in cols]
+
+            # appendo 'cols' al set 'mx'
             mx.append(cols)
 
+        # cancello la variabile 0 nel set mx (!!! chiedi ad @Alan perché)
         del(mx[0])
         return mx
 
     def _save_dataframe(self):
+        """definisco una funzione _save_dataframe che ha come argomento solo se stessa"""
+
+        # vado a salvare i dati in 'comuni_pop.pkl'
         df = self.comuni.to_pickle("comuni_pop.pkl")
 
     def _make_dataframe(self):
+        """definisco una funzione _make_dataframe che come argomento solo se stessa"""
+
+
         df = DataFrame(self._get_comuni(), columns=["id", "Comune", "Regione", "Provincia", "Abitanti"])
         print("Data retrieved succesfully. Here's a sample:\n")
         print(df.head(10))
