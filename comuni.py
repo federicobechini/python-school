@@ -19,15 +19,15 @@ class ComuniPop(object):
     """è stata creata una classe ComuniPop dove verranno inserite alcune informazioni"""
 
     def __init__(self):
-        """La funzione def __init__ ha come argomento solo se stesso"""
+        """Il metodo '__init__' inizializza la classe ComuniPop a seconda dell'esistenza o meno di 'comuni_pop.pkl' """
 
         if Path("comuni_pop.pkl").is_file():
             self.comuni = pd.read_pickle("comuni_pop.pkl") # se comuni_pop.pkl esiste allora viene letto
         else:
-            self.comuni = self._make_dataframe() # se non esiste viene creato un DataFrame
+            self.comuni = self._make_dataframe() # se non esiste viene creato un DataFrame chiamando un altro metodo (riga #72)
 
     def _get_comuni(self):
-        """definisco una nuova funzione _get_comuni che ha come argomento solo se stessa"""
+        """il metodo _get_comuni va a leggere una specifica pagina internet"""
 
         # viene letta la pagina web di wiki e definita come 'r'
         r = requests.get("https://it.wikipedia.org/wiki/Comuni_d'Italia_per_popolazione")
@@ -59,23 +59,23 @@ class ComuniPop(object):
             # appendo 'cols' al set 'mx'
             mx.append(cols)
 
-        # cancello la variabile 0 nel set mx (!!! chiedi ad @Alan perché)
+        # cancello la variabile 0 nel set mx (perché è l'header)
         del(mx[0])
         return mx
 
     def _save_dataframe(self):
-        """definisco una funzione _save_dataframe che ha come argomento solo se stessa"""
+        """il metodo _save_dataframe salva i dati in comuni_pop.pkl"""
 
         # vado a salvare i dati in 'comuni_pop.pkl'
         df = self.comuni.to_pickle("comuni_pop.pkl")
 
     def _make_dataframe(self):
-        """definisco una funzione _make_dataframe che come argomento solo se stessa"""
+        """definisco il metodo _make_dataframe per creare un dataset dei dati presi da wikipedia"""
 
 
         df = DataFrame(self._get_comuni(), columns=["id", "Comune", "Regione", "Provincia", "Abitanti"])
         print("Data retrieved succesfully. Here's a sample:\n")
-        print(df.head(10))
+        print(df.head(10)) # stampo le prime 10 righe del dataset
         return df
 
 if __name__ == "__main__":
