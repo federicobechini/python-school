@@ -2,8 +2,13 @@
 # OBJECT = un insieme di dati e metodi
 # CLASS = istruzioni per OBJECT
 
-class Learner (object): #le classi si scrivono in cammel case->LearnerFederico
+class Learner (object): #le classi si scrivono in camel case->LearnerFederico
+    """Creo una classe/funzione 'Learner' dove inserirò tutte le informazioni degli studenti di cui ho bisogno
+    (nome, cognome, livello di preparazione, classe di preparazione)."""
+
+
     def __init__(self, name, surname, level=0, classes=0): #gli stiamo dicendo che la fx init ha 3argomenti: se stessa, name e surname
+        """La funzione init ha 5 argomenti, se stessa, nome, cognome, livello e classe"""
         self.k = 5 #k sta per constant (in pratica la fx self è una costante = a 5)
         self.name = name
         self.surname = surname
@@ -13,12 +18,16 @@ class Learner (object): #le classi si scrivono in cammel case->LearnerFederico
         self.days = self._calc_days(self.level, self.classes)
 
     def __repr__(self):
+        """Definisco il metodo di rappresentazione dell'argomento self"""
         return "Learner: {}\nLevel-> {}\nClasses-> {}\nDays-> {}".format(self.fullname, self.level, self.classes, self.days) #le parentesi {} sono un segnaposto per il .format
 
     def add_data(self, level=0, classes=0):
+        """Stiamo passando nuovi dati alla funzione init tramite l'interfaccia add data"""
         self.__init__(self.name, self.surname, level, classes) #in questo modo richiamo l'init che avevamo fatto sopra e aggiungo i dati di quell'init ma gli stiamo passando nuovi dati tramite interfaccia add data
 
     def _calc_days(self, level, classes): #abbiamo messo underscore al metodo calc_days perché è un metodo privato
+        """Qui definisco il calcolo dei giorni mancanti al livello master
+        a seconda del livello e delle classi. Ogni classe dura 2 ore. Ogni livello sono 100 giorni"""
         if level == 0:
             return None
 
